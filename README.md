@@ -26,3 +26,10 @@ around:	slt $6, $7, $2		# 00e2302a
 		lw $7, 0($0)		# 8c070000
 end:	sw $7, 71($2)		# ac470047
 ```
+
+## The Process
+Below are the details regarding the implementation for each of the verilog files.
+
+### alu.v
+
+### aludec.v
