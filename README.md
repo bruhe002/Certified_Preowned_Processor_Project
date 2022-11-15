@@ -31,5 +31,22 @@ end:	sw $7, 71($2)		# ac470047
 Below are the details regarding the implementation for each of the verilog files.
 
 ### alu.v
+module alu represents a 32-bit alu of a MIPS CPU with a list of input signals/ports: a_in(32-bit), b_in(32-bit), f_in(3-bit) and output signals/ports: zero, c_out, and y_out(32-bit)
+
+* a_in(32-bit) represents the first input A
+* b_in(32-bit) represents the second input B
+* f_in(3-bit)  represents the 3 flag bits: C,V, and Z
+
+* zero represents the Zero Flag
+* c_out represents the Carry Out Flag
+* y_out represents the output based on the operation performed on A & B
+
+module alu has 6 internal wires: not_b_in(32-bit), b_mux_not_b(32-bit), fx00(32-bit), fx01(32-bit), fx10(32-bit), and fx11(32-bit), which represents the 6 operations that the alu supports(AND, OR, add, sub, slt, and NOR). 
+
+* not_b_in(32-bit) represents bitwise negation of b_in(~B)
+* b_mux_not_b(32-bit) represents if 1-bit of zero equals the third flag input then b_mux_not_b is set to b_in(B) else b_mux_not_b is set to not_b_in(~B)
+* fx00(32-bit) represents the AND function a_in & b_mux_not_b(A&B)
+* fx01(32-bit) represents the OR function a_in | b_mux_not_b(A|B)
+* fx10(32-bit) represents the add function where c_out is equal to a_in + b_mux_not_b to give a number more than 
 
 ### aludec.v
