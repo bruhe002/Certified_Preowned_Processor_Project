@@ -44,13 +44,13 @@ module alu represents a 32-bit alu of a MIPS CPU with a list of input signals/po
 module alu has 6 internal wires: not_b_in(32-bit), b_mux_not_b(32-bit), fx00(32-bit), fx01(32-bit), fx10(32-bit), and fx11(32-bit), which represents the 6 operations that the alu supports(AND, OR, add, sub, slt, and NOR). 
 
 * not_b_in(32-bit) represents bitwise negation of b_in(~B)
-* b_mux_not_b(32-bit) represents if 1-bit zero equals the operation then b_mux_not_b is set to b_in(B) else * b_mux_not_b is set to not_b_in(~B)
+* b_mux_not_b(32-bit) represents if 1-bit zero equals the operation then b_mux_not_b is set to b_in(B) else b_mux_not_b is set to not_b_in(~B)
 * fx00(32-bit) represents the AND function a_in & b_mux_not_b(A&B)
 * fx01(32-bit) represents the OR function a_in | b_mux_not_b(A|B)
 * fx10(32-bit) represents the add function where c_out is equal to a_in + b_mux_not_b(A + B) and c_out represents the carry bit 
 * fx11(32-bit) represents subtraction, negate one of the inputs by using twos complement: invert every bit in the number then add 1 (A-B = A +(~B) = A + ~B + 1)
 
-*zero = ~| y_out represents NOR
-*y_out represents the output based on the operation to perform
+* zero = ~| y_out represents NOR
+* y_out represents the output based on the operation to perform
 
 ### aludec.v
