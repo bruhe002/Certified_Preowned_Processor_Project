@@ -62,3 +62,17 @@ module aludec represents the alu control design and is responsible for decoding 
 * alucontrol = 3'b000 represents AND
 * alucontrol = 3'b001 represents OR
 * alucontrol = 3'b111 represents SLT
+
+##controller.v
+module controller represents a MIPS controller that is responsible for decoding the instructions and generating mux select and register enable signals for the datapath. List of input signals/ports: instr(32-bit) and list of ouput signals/ports: branch, jump, mem_to_reg, mem_write, reg_dist, reg_write, alucontrol(3-bit), and alu_src
+
+* instr(32-bit) represents the instruction begin passed into the controller
+
+* branch represents a control output signal that tests boolean to enable loading the branch target address into the PC
+* jump represents a control output signal that enables loading the jump target address into the PC
+* mem_to_reg represents a control output signal that determines where the value to be written comes from
+* mem_write represents a control output signal that enables a memory write for store instructions
+* reg_dist represents a control output signal that determines how the destination register is specified
+* reg_write represents a control output signal that enables a write to one of the registers
+* alucontrol(3-bit) represents a control output signal that either pecifies the ALU operation to be performed or specifies that the operation should be determined from the function bits
+* alu_src represents a control output signal the second source operand for the ALU 
