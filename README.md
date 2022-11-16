@@ -59,6 +59,6 @@ module aludec represents the alu control design and is responsible for decoding 
 * alucontrol = 3'b110 represents SUB 
 * alucontrol = 3'b010 represents add 
 * alucontrol = 3'b110 represents sub 
-* alucontrol = 3'b000; represents AND
-* alucontrol = 3'b001; represents OR
-* alucontrol = 3'b111; represents SLT
+* alucontrol = 3'b000 represents AND
+* alucontrol = 3'b001 represents OR
+* alucontrol = 3'b111 represents SLT
