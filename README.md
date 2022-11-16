@@ -63,7 +63,7 @@ module aludec represents the alu control design and is responsible for decoding 
 * alucontrol = 3'b001 represents OR
 * alucontrol = 3'b111 represents SLT
 
-##controller.v
+### controller.v
 module controller represents a MIPS controller that is responsible for decoding the instructions and generating mux select and register enable signals for the datapath. List of input signals/ports: instr(32-bit) and list of ouput signals/ports: branch, jump, mem_to_reg, mem_write, reg_dist, reg_write, alucontrol(3-bit), and alu_src
 
 * instr(32-bit) represents the instruction begin passed into the controller
@@ -76,3 +76,12 @@ module controller represents a MIPS controller that is responsible for decoding 
 * reg_write represents a control output signal that enables a write to one of the registers
 * alucontrol(3-bit) represents a control output signal that either pecifies the ALU operation to be performed or specifies that the operation should be determined from the function bits
 * alu_src represents a control output signal the second source operand for the ALU 
+
+### sign_extend.v
+
+module sign_extend represents sign extension in MIPS where using two's complement and adding to the binary value until the value extends to 32-bit, we can simply extend the sign bit(MSB) left until the binary value extends to 32-bit. The input port/signal: idata(16-bit) and the output port/signal: odata(32-bit)
+
+* idata(16-bit) represents the input data that is less than 32-bit
+* odata(32-bit) represents the output data that is extended to 32-bit
+
+* odata(32-bit) represents the output 32-bit data that is sign extended by extending the idata(16 bit) to 32-bit and adding the sign bit of idata to the 32-bit idata
