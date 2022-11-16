@@ -54,3 +54,11 @@ module alu has 6 internal wires: not_b_in(32-bit), b_mux_not_b(32-bit), fx00(32-
 * y_out represents the output based on the operation to perform
 
 ### aludec.v
+module aludec represents the alu control design and is responsible for decoding a 3-bit ALUOp signal(reg [2:0] alucontrol) a 6-bit function field(instr[5:0]) of the instruction to produce three multiplexer control lines for the ALU(output [ 2:0] alucontrol)
+
+* alucontrol = 3'b110 represents SUB 
+* alucontrol = 3'b010 represents add 
+* alucontrol = 3'b110 represents sub 
+* alucontrol = 3'b000; represents AND
+* alucontrol = 3'b001; represents OR
+* alucontrol = 3'b111; represents SLT
