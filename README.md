@@ -85,3 +85,8 @@ module sign_extend represents sign extension in MIPS where using two's complemen
 * odata(32-bit) represents the output data that is extended to 32-bit
 
 * odata(32-bit) represents the output 32-bit data that is sign extended by extending the idata(16 bit) to 32-bit and adding the sign bit of idata to the 32-bit idata
+
+### dump.vcd
+
+dump.vcd represents the output of all the .v files above in waveforms, needs to be run with gtkwave software to produce image shown as below.
+![alt text](https://github.com/Chin-Lee-lol/Certified_Preowned_Processor_Project/blob/main/output%20image/waveform.png)
