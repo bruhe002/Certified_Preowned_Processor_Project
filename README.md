@@ -86,6 +86,53 @@ module sign_extend represents sign extension in MIPS where using two's complemen
 
 * odata(32-bit) represents the output 32-bit data that is sign extended by extending the idata(16 bit) to 32-bit and adding the sign bit of idata to the 32-bit idata
 
+## datapath.v
+
+At first glance, the datapath is utilizing the entire MIPS instruction architecture, taking all the blocks and utilizing them together. 
+
+First, the file initializes all the variables needed, such as the clock input (clk), rest input (rst), and the other necessary components: aluControl, alu_src, branch, jump, mem_to_reg, mem_write, reg_dst, and reg_write. On top of that, it initializes the inputs needed for instruction memory, such as the instruction itself and the PC address, and the inputs needed for data memory in this case it's only read_data. 
+
+The outputs initialized are the alu_result, and the write_data.
+
+datapath.v then sets up the wires for pc_plus_4, which is the wire for the next instruction; the wrie for the jump instruction, as well as the wire for the branch instruction, along with pc_src which acts as the AND gate between the branch and zero input.
+
+pc_next is the address of the next instruction, which is calculated by using a nested ternary perator deciding if the next instruction takes a +4 route, a branch route or a jump route.
+
+From there, the code goes into an always block, determined by the switches of the clock, and determined on the complement of the rst input, the current pc value will get updated to the next pc address. If the complement of the rst input were to equal FALSE, then the pc variable will be initialized to zero. 
+
+Afterward, the file assigns the variable rt to the inst[20:16] and rd is assigned with inst[15:11]. The write_reg is determined whether by the reg_dst control signal. If true, write_reg is set to rd; if false, write_reg is set to rt.
+
+The result variable is also determined by the mem_to_reg flag. If true, the result variable is assigned to read_data; if false, the result vaiable is assigned to the alu_result data.
+
+Three wires are then initialized: src_a, src_b, and c_out.
+
+src_a is assigned with the value of reg_data1.
+
+src_b's data is determined by the alu_src flag: true results in imm_ext value (used for constant numbers in MIPS arithmetic instructions); false results in reg_data2's value.
+
+Values are calculated accordingly using regfile, alu, and sign_extend instances and from there the write_data is given the value of reg_data2, completing the datapath.v file, performing arithmetic, branch, and jump instructions
+
+## dmem.v
+
+By name alone, it's safe to assume that this file is to initialize DATA MEMORY, which is the structure used to perform MIPS lw and sw instructions. Basic enough, the code initializes a clock input; a **we** input which from the code itself we can assume is the write-register flag; addr variable which is the address input for the data memory structure; and the wdata, which is the data to write to memory. The output, rdata is the information needed to write data into the memory bank. The memory data variable [memData] is initialized with 128 bits. 
+
+Obviously, the rdata is assigned the data of memdata at the address assigned before. The wdata is used to assign a value to the memdata at the address assigned before within an align block that occurs with the posedge of a clock. Depending on the **we** flag value will determine whether or not the memdata gets written to the write address.
+
+## imem.v
+
+imem.v is a pretty simple file with one input **addr** and one output **data**. From there, the rest of the code is a switch block that determines the instruction being executed depending on the value that **addr** is.
+
+## maindec.v
+
+maindec.v is the file that determines which instruction type is being performed, determining how the binary MIPS instruction is read. The sole input is the 32-bit instruction. Based on the opcode bits [31:26], it will decide which control outputs are given true values: branch, jump, mem_to_reg, mem_write, reg_dst, reg_write and the alu_src.
+
+The func bits [5:0] are also initialized in case the opcode is determining if a R-format instruction is being read. Based on the opcode (and sometimes the func value) is_* wires are initialized to convey what type of instruction is being read. Those wires are used in boolean statements in order to calculate the values of the control signals initialized up above.
+
+## mips.v
+
+mips.v file handles all the MIPS instructions passed to the components of the processor, utilizing the assets from the controller.v and the datapath.v files by creating appropriate variables and passing them to the appropriate files. Necessary to the mips module are the instruction data and memory variables (imem_data and imem_addr) and memory read data (dmem_rdata), memory write flag (dmem_we), memory address (dmem_addr), memory write data (dmem_wdata).
+
+
 ### dump.vcd
 
 dump.vcd represents the output of all the .v files above in waveforms, needs to be run with gtkwave software to produce image shown as below.
