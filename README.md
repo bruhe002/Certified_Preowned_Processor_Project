@@ -30,7 +30,7 @@ end:	sw $7, 71($2)		# ac470047
 ## The Process
 Below are the details regarding the implementation for each of the verilog files.
 
-### alu.v
+## alu.v
 module alu represents a 32-bit alu of a MIPS CPU with a list of input signals/ports: a_in(32-bit), b_in(32-bit), f_in(3-bit) and output signals/ports: zero, c_out, and y_out(32-bit)
 
 * a_in(32-bit) represents the first input A
@@ -53,7 +53,7 @@ module alu has 6 internal wires: not_b_in(32-bit), b_mux_not_b(32-bit), fx00(32-
 * zero = ~| y_out represents NOR
 * y_out represents the output based on the operation to perform
 
-### aludec.v
+## aludec.v
 module aludec represents the alu control design and is responsible for decoding a 3-bit ALUOp signal(reg [2:0] alucontrol) a 6-bit function field(instr[5:0]) of the instruction to produce three multiplexer control lines for the ALU(output [ 2:0] alucontrol)
 
 * alucontrol = 3'b110 represents SUB 
@@ -133,7 +133,14 @@ The func bits [5:0] are also initialized in case the opcode is determining if a 
 mips.v file handles all the MIPS instructions passed to the components of the processor, utilizing the assets from the controller.v and the datapath.v files by creating appropriate variables and passing them to the appropriate files. Necessary to the mips module are the instruction data and memory variables (imem_data and imem_addr) and memory read data (dmem_rdata), memory write flag (dmem_we), memory address (dmem_addr), memory write data (dmem_wdata).
 
 
-### dump.vcd
+## dump.vcd
 
 dump.vcd represents the output of all the .v files above in waveforms, needs to be run with gtkwave software to produce image shown as below.
 ![alt text](https://github.com/Chin-Lee-lol/Certified_Preowned_Processor_Project/blob/main/output%20image/waveform.png)
+
+
+# Pipelined Processor
+
+The code acquired for the Pipelined Processor was from a GitHub repository with an MIT license expressing consent to use the code for this project.
+
+The original code can be found via the following link: https://github.com/Hola39e/MIPS_Multi_Implementation
