@@ -4,6 +4,14 @@ Utilizing Verilog to create a single cycle MIPS implemented CPU
 
 ## Code provided by the following repository => https://github.com/diadatp/mips_cpu.git
 
+##Steps to run verilog files
+To run test branch 
+- iverilog *.v
+- vvp a.out
+
+Than run GTKWAVE
+- gtkwave dump.vcd test.gtkw
+
 In order to run the code in gtkwave software, we open a command prompt via file explorer. From there, we run the command ***gtkwave dump.vcd test.gtkw***.
 
 The ***test.gtkw*** file holds all the test data used to run the coded CPU. The MIPS instructions in the file are the following *(Pulled from the original creator's repository)*:
