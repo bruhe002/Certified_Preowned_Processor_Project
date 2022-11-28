@@ -4,7 +4,7 @@ Utilizing Verilog to create a single cycle MIPS implemented CPU
 
 ## Code provided by the following repository => https://github.com/diadatp/mips_cpu.git
 
-##Steps to run verilog files
+## Steps to run verilog files
 To run test branch 
 - iverilog *.v
 - vvp a.out
